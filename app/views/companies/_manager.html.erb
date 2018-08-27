@@ -1,0 +1,12 @@
+<h1>welcome</h1>
+
+  <p>Want to create a company? 
+   <%= link_to 'Create Company', new_company_path %> <br />
+  </p>
+  <p>Want to post a job?
+    <%= link_to 'Job', jobs_path %>
+  </p>
+  <p>To edit company detailsclick here
+  	<%= link_to 'Edit', edit_company_path(current_user.company) %>
+  </p>
+  <%= link_to 'show company', company_path(current_user.company.id) %>

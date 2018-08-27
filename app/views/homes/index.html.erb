@@ -1,0 +1,9 @@
+<% if user_signed_in? && current_user.is_manager? %> 
+  <%= render 'companies/manager'%>
+<% elsif user_signed_in? && current_user.is_job_seeker? %>
+  <%= render 'index' %>
+<% else%>
+  <%= render 'index'%>
+<% end %>
+
+ 

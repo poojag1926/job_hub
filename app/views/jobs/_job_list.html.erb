@@ -1,0 +1,10 @@
+<% if user_signed_in? and current_user.is_manager? %>
+	<%= render partial: 'jobs/job', collection: @jobs %>
+<% else %>
+	<%= @jobs.in_groups_of(2, false) do |jobs| %>
+		<div class="row">
+		  <%= render partial: 'jobs/job', collection: jobs %>
+		</div>	
+	<% end %>
+<% end %>
+<%= will_paginate @jobs,{link_options: {'data-remote': true}, previous_label: "<-Back", renderer: BootstrapPagination::Rails} %>

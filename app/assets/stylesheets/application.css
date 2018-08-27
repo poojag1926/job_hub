@@ -1,0 +1,79 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ .big-checkbox {
+  width: 100px; 
+  height: 100px;
+  }
+
+.cus-align-center {
+  text-align:center;
+
+}
+.cus-align-right {
+
+   display:inline-block; 
+   margin-left: 290px; 
+}
+.cus-align-left {
+
+   display:inline-block; 
+   margin-right: 130px; 
+}
+.cus-align-set {
+
+   display:inline-block; 
+   margin-right: 200px; 
+}
+
+.remove-detail-btn {
+  margin-bottom: 80px; 
+}
+
+.font-size{
+	font-size: 1.9em;
+	font-weight: bold;
+
+}
+.margin{
+	margin: 20px;
+}
+.navbar-width{
+    width:125%;
+    margin:0px auto;
+    left:0;
+    right:0;
+    padding:0;
+}
+
+.panel-bodies{
+  white-space: nowrap;
+  overflow-wrap: break-word;
+
+}
+.content{
+  overflow-x: auto;
+}
+
+.img-circular{
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  display: block;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  text-align: center;
+}

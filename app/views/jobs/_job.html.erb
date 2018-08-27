@@ -1,0 +1,58 @@
+<% if user_signed_in? && current_user.is_manager? %>
+  <tr>  
+    <td><%= job.title %></td>
+    <td><%= job.req_experience %></td>
+    <td><%= job.req_qualification %></td>
+    <td><%= job.offer_ctc %></td>
+    <td><%= job.contact_person %></td>
+    <td><%= job.contact_person_no %></td>
+    <td><%= job.location %></td>
+    <td><%= job.no_of_vacancies %></td>
+    <td><%= job.status %></td>
+    <td>
+      <%= select_tag :status, options_for_select(job_status, selected: job.status),class: 'change_status',   data: {
+        remote: true,url: update_status_job_path(job.id),
+        method: :put,params: 'another_param=true'} %>
+    </td>
+    <td><%= job.description %></td>
+    <td>
+      <%= link_to edit_job_path(job.id) do %>
+        <i class="glyphicon glyphicon-pencil"></i>
+      <% end %>
+      <%= link_to job, method: :delete, data: {confirm: 'Are you sure?'} do %>
+        <i class="glyphicon glyphicon-trash"></i>
+      <% end %>
+      <%= link_to job do %>
+        <i class="glyphicon glyphicon-eye-open"></i>
+      <% end %>
+    </td>
+  </tr>
+<% else %>
+  <div class="col-sm-6 ">
+    <div class="panel panel-info">
+      <div class="panel-body panel-bodies word-break">
+        <div class="row">
+          <div class="col-sm-4">
+            <h2><%= job.title %></h2>
+            <h4><%= job.company.company_name %></h4>
+            <h5><i class="glyphicon glyphicon-map-marker"></i><%= job.location %></h5>
+            <h5> &#8377; <%= job.offer_ctc %> a year</h5>
+            <h5><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>  <%= job.req_qualification %></h5>
+            <h5><i class="glyphicon glyphicon-briefcase"></i>  <%= job.req_experience %> years</h5>
+            <h5><b>Contact Person:  </b><%= job.contact_person %></h5>
+            <h5><b>Number: </b><%= job.contact_person_no %></h5>
+            <h5><b>Total Vacancies:  </b><%= job.no_of_vacancies %></h5>
+            <h5><%= job.description %></h5>
+          </div>
+        </div>
+        <div class="pull-right">
+          <%= link_to 'Apply',job_applied_job_path(job.id), class: 'btn btn-primary' %>
+          <%= link_to 'Show job',job_path(job), class: 'btn btn-success' %>
+        </div>
+        <div class="label label-info pull-left">
+          Posted At: <%= job.published_at.strftime("%Y-%b-%d") rescue '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

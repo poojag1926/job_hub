@@ -1,0 +1,66 @@
+<div class="panel panel-info">
+  <div class="panel-heading">Profile Details</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <%= image_tag(@user.image_url(:thumb).to_s, class: 'img-circular') %>
+        <h4><b>Resume: </b><%= link_to 'Download resume', @user.resume_url, target: :_blank %></h4>
+      </div>
+      <div class="col-md-6">
+        <h3><strong>Personal Details:</strong></h3>
+        <p>
+          <strong>Name:</strong>
+          <%= @user.full_name %> 
+        </p>
+        <p>
+          <strong>Email:</strong>
+          <%= @user.email %> 
+        </p>
+        <p>
+          <strong>City:</strong>
+          <%= @user.city %> 
+        </p>
+        <p>
+          <strong>State:</strong>
+          <%= @user.state %> 
+        </p>
+        <p>
+          <strong>Username:</strong>
+          <%= @user.username %> 
+        </p>
+        <p>
+          <strong>Contect No:</strong>
+          <%= @user.contact_no %> 
+        </p>
+
+        <h3>
+          <strong>Professional Details:</strong>
+        </h3>
+        <% @user.professional_details.each do|details| %>
+          <p><strong>Job Role:</strong>
+            <%= details.job_role %>
+          </p>
+          <p><strong>Job Technology:</strong>
+            <%= details.job_technology %>
+          </p>
+          <p><strong>Current CTC:</strong>
+            <%= details.current_ctc%>
+          </p>
+          <p><strong>Experience:</strong>
+            <%= details.experience %>
+          </p>
+          <p><strong>Current Company:</strong>
+            <%= details.company %>
+          </p>
+        <%end%>
+        <% if current_user and current_user.is_job_seeker? %>
+          <%= link_to 'Want to Update your profile',edit_user_registration_path, class: 'btn btn-primary' %>
+        <%else%>
+          <%= link_to 'Back', root_path, class: 'btn btn-primary' %>
+        <% end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+  

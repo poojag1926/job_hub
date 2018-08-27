@@ -1,0 +1,18 @@
+<h2><i class="glyphicon glyphicon-search"></i>Looking for a job? then start search from here.</h2>
+<div class="row">
+
+  <%= search_form_for @q, remote: :true, url: jobs_path, method: :get do |f| %>
+    <div class="col-sm-4">
+      <%= f.select :category_category_name_cont,                 options_from_collection_for_select(Category.all, 'category_name', 'category_name', @q.category_category_name_cont), {}, {class: 'form-control'} %><br />
+    </div>
+    <div class="col-sm-4">
+      <%= f.search_field :company_company_name_or_location_or_title_cont, class: "form-control", placeholder: 'enter designation, location etc.' %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.submit "search", class: 'btn btn-info' %>
+    </div>
+  <%end%>
+</div>
+<div class="job-list">
+  <%= render partial: 'jobs/job_list'%> 
+</div>

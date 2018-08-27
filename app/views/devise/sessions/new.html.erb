@@ -1,0 +1,31 @@
+<div class="row">
+  <center>
+    <div class="well" style="width:50%;">
+      <h2 class="cus-align-center">Login</h2><br>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= render 'layouts/flash_message'%>
+        <%#= devise_error_messages! %>
+        <div class="form-group row">
+          <%= f.label :email, class: 'col-sm-2 col-form-label-lg' %>
+          <div class="col-sm-10">
+            <%= f.text_field :login, autofocus: true, class: 'form-control', placeholder: 'Enter Email' %><br />
+          </div>
+        </div>
+        <div class="form-group row">
+          <%= f.label :password, class: 'col-sm-2 col-form-label-lg' %>
+          <div class="col-sm-10">
+            <%= f.password_field :password, autofocus: true, class: 'form-control', placeholder: 'password' %><br />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-12 col-lg-12">
+            <%= f.submit "Login", class: 'btn btn-primary btn-md' %>
+          </div>
+        </div>
+        <p>New User?
+          <%= render "devise/shared/links", class: "offset-12 col-lg-12" %>
+        </p>
+      <% end %>
+    </div>  
+  </center>
+</div>    

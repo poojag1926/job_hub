@@ -1,0 +1,12 @@
+<p>
+ A Job Seeker has applied for your job
+</p>
+<p>
+ Job Seeker details:
+</p>
+<h5>Name: <%= @seeker.full_name %></h5>
+<h5>City: <%= @seeker.city %></h5>
+<p>
+	To see the full details of job seeker <%= link_to 'click here', user_url(@seeker)%>click here 
+</p>
+ 

@@ -1,0 +1,26 @@
+<div class="panel panel-info">
+	<div class="panel-body">
+		<h2>Company Details:</h2>
+		<p>
+			<strong>Name :</strong>
+			<%= @company.company_name %>
+		</p>
+		<p>
+			<strong>Company Type :</strong>
+			<%= @company.company_type %>
+		</p>
+		<p>
+			<strong>Mail :</strong>
+			<%= @company.contact_mail %>
+		</p>
+		<p>
+			<strong>Location :</strong>
+			<%= @company.company_location %>
+		</p>
+		<p>
+			<strong>State :</strong>
+			<%= @company.company_state %>
+		</p>
+		<%= link_to 'back', root_path, class: 'btn btn-primary'%>
+	</div>
+</div>

@@ -1,0 +1,11 @@
+
+<p>
+You have successfully applied for <%= @job.title %> With Username  <%= @current_user.username %>
+</p>
+<p>
+To see the Job please <%=link_to "click here", job_url(@job) %>
+</p>
+<p>
+  To find more jobs, please click on following link: <%=link_to "click here", root_url %>
+</p>
+

@@ -1,0 +1,119 @@
+<div class="row">
+  <center>
+    <div class="well" style="width: 60%;">
+      <%= nested_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= devise_error_messages! %>
+          <h2>Edit <%= resource_name.to_s.humanize %></h2><br>
+          <div class="form-group row">
+            <%= f.label :upload_image, class: 'col-sm-2 col-form-label-lg' %>
+            <div class="col-sm-10">
+             <%= f.file_field :image, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :upload_resume, class: 'col-sm-2 col-form-label-lg' %>
+            <div class="col-sm-10">
+             <%= f.file_field :resume, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :name, class: 'col-sm-2 col-form-label-lg' %>
+            <div class="col-sm-10">
+              <%= f.text_field :full_name, autofocus: true, class: 'form-control', placeholder: 'Enter Name' %><br />
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :email, class: 'col-sm-2 col-form-label-lg' %>
+            <div class="col-sm-10">
+              <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Enter Email' %><br />
+            </div>
+          </div>
+            <div class="form-group row">
+
+              <%= f.label :city, class: 'col-sm-2 col-form-label-lg' %>
+              <div class="col-sm-10">
+                <%= f.text_field :city, autofocus: true, class: 'form-control', placeholder: 'Enter city' %><br />
+              </div>
+            </div>
+            <div class="form-group row">
+              <%= f.label :state, class: 'col-sm-2 col-form-label-lg' %>
+              <div class="col-sm-10">
+                <%= f.text_field :state, autofocus: true, class: 'form-control', placeholder: 'Enter state' %><br />
+              </div>
+            </div>
+            <div class="form-group row">
+              <%= f.label :username, class: 'col-sm-2 col-form-label-lg' %>
+              <div class="col-sm-10">
+                <%= f.text_field :username, autofocus: true, class: 'form-control', placeholder: 'Enter username' %><br />
+              </div>
+            </div>
+            <div class="form-group row">
+              <%= f.label :contact_no, class: 'col-sm-2 col-form-label-lg' %>
+              <div class="col-sm-10">
+                <%= f.text_field :contact_no, autofocus: true, class: 'form-control', placeholder: 'Enter number' %><br />
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <%= f.label :password, class: 'col-sm-2 col-form-label-lg' %>
+              <div class="col-sm-10">
+                <%= f.password_field :password, autofocus: true, class: 'form-control', placeholder: 'password' %><i>(leave blank if you don't want to change it)</i><br />
+              </div>
+            </div>
+            <div class="form-group row">
+              <%= f.label :cofirm_password, class: 'col-sm-2 col-form-label-lg' %>
+              <div class="col-sm-10">
+                <%= f.password_field :password_confirmation, autofocus: true, class: 'form-control', placeholder: 'retype_password' %><br />
+              </div>
+            </div>
+            <% unless resource.is_manager? %>
+              <%= f.fields_for :professional_details do |d| %>
+              <div class="form-group row">
+                <%= d.label :job_role, class: 'col-sm-2 col-form-label-lg'  %>
+                <div class="col-sm-10">
+                  <%= d.text_field :job_role, autofocus: true, class: 'form-control', placeholder: 'job_role' %>
+                  <br />
+                </div>
+              </div>
+              <div class="form-group row">
+                <%= d.label :job_technology, class: 'col-sm-2 col-form-label-lg'  %>
+                <div class="col-sm-10">
+                  <%= d.text_field :job_technology, autofocus: true, class: 'form-control', placeholder: 'job_technology' %><br />
+                </div>
+              </div>
+              <div class="form-group row">
+                <%= d.label :ctc, class: 'col-sm-2 col-form-label-lg'  %>
+                <div class="col-sm-10">
+                  <%= d.text_field :current_ctc, autofocus: true, class: 'form-control', placeholder: 'current_ctc' %><br />
+                </div>
+              </div>
+              <div class="form-group row">
+                <%= d.label :experience, class: 'col-sm-2 col-form-label col-form-label-lg' %>  
+                <div class="col-sm-10">
+                  <%= d.select :experience, experience_options, { prompt: 'Select One'}, class: 'form-control' %>
+                   <br />
+                </div>
+              </div>
+              <div class="form-group row">
+                <%= d.label :company, class: 'col-sm-2 col-form-lg'  %>
+                <div class="col-sm-10">
+                  <%= d.text_field :company, autofocus: true, class: 'form-control', placeholder: 'company' %><br />
+                </div>
+              </div>
+              <p class="remove-detail-btn">
+                <%= d.link_to_remove "Remove this detail", class: 'btn btn-danger pull-right' %>
+              </p>
+              <%end%>
+              <p><%= f.link_to_add "Add details", :professional_details, class: 'btn btn-success pull-right' %></p><br>
+            <% end %>  
+            <div class="form-group row">
+              <div class="offset-12 col-lg-12">
+                <%= f.submit "Update",class: 'btn btn-primary btn-md'%>
+                <%= link_to 'see full profile', user_path(current_user.id)%>
+                | <%= link_to "Back", :back %>
+              </div>
+            </div>
+        <% end %>
+    </div>
+  </center>
+</div>
