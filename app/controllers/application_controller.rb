@@ -26,15 +26,6 @@ class ApplicationController < ActionController::Base
     end      
   end
 
-  # def require_resume
-  #   if current_user
-  #     unless current_user.resume?
-  #       flash[:notice] = 'you need to upload resume first.'
-  #       redirect_to edit_user_registration_path
-  #     end
-  #   end
-  # end
-    
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:full_name, :username, :contact_no, :role,
                               :city, :state, :email])
@@ -43,15 +34,8 @@ class ApplicationController < ActionController::Base
                               professional_details_attributes: [:id, :job_role, :job_technology, :current_ctc, 
                               :experience, :company, :_destroy]
                               ])
-    #params.require(:user).permit(:name, professional_details_attributes: [:id, :name, :_destroy])
   end
    
- #   devise_parameter_sanitizer.for(:sign_up) do |u|
- #   u.permit(:full_name, :contact_no, :city, :state)
- #  end
- # devise_parameter_sanitizer.for(:account_update) do |u|
- #  u.permit(:full_name, :contact_no, :city, :state 
- # end
   def set_search
     @q=Job.search(params[:q])
   end

@@ -42,11 +42,3 @@ end
 
 
 
-
-
-# <div class="panel panel-default">
-#   <div class="panel-heading">Job Details</div>
-#   <div class="panel-body">
-#     <p>These are the JOBS.</p>
-#   </div>
-#   <table class="table">
