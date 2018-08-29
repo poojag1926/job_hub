@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_job, except: [:index, :new, :create, :show, :job_applied]
   before_action :set_search
-
+  before_action :check_company_approved?, except: [:index, :show]
   def index
     jobs = (current_user and current_user.is_manager?) ? current_user.created_jobs : Job.published
     @q = jobs.ransack(params[:q])
@@ -49,22 +49,21 @@ class JobsController < ApplicationController
 
   def job_applied
     @job = Job.find(params[:id])
-    @applied_job = @job.applied_jobs.new(job_seeker_id: current_user.id)
-    @user = @applied_job.user
-    if current_user
-      unless current_user.resume?
+    unless current_user.has_applied_for_job?(@job.id)
+      if current_user.resume?
+        @applied_job = @job.applied_jobs.new(job_seeker_id: current_user.id)
+        if @applied_job.save
+          JobMailer.with(job: @job, job_seeker: current_user).inform_manager_email.deliver_now
+          JobMailer.with(job: @job, job_seeker: current_user).confirmation_user_email.deliver_now
+          flash[:success] = "Applied Successfully."
+        end  
+      else
         flash[:info] = "You need to upload your resume first."
         redirect_to (edit_user_registration_path)
         return
       end  
-    elsif @applied_job.save
-      JobMailer.with(job: @job, job_seeker: current_user).inform_manager_email.deliver_now
-      JobMailer.with(job: @job, job_seeker: current_user).confirmation_user_email.deliver_now
-      flash[:success] = "Applied Successfully."
-    else
-      flash[:error] = "Try Again."
-    end
-    render root_path  
+    end  
+    redirect_to root_path  
   end
   
   def show
@@ -73,9 +72,10 @@ class JobsController < ApplicationController
 
   def destroy
     @job = current_user.created_jobs.find(params[:id])
-    @job.destroy
-    redirect_to jobs_path
+    if @job.destroy
       flash[:danger] = "Job successfully deleted."
+      redirect_to jobs_path
+    end
   end
 
   private
@@ -90,5 +90,12 @@ class JobsController < ApplicationController
       flash[:notice] = 'Could not found job.'
       redirect_to jobs_path
     end 
-  end     
+  end 
+
+  def check_company_approved? 
+    if current_user and current_user.company.is_approved?
+      flash[:info] = "your company is not approved"
+      redirect_to root_path
+    end
+  end    
 end
