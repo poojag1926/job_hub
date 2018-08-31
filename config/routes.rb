@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   mount FullCountrySelect::Engine => '/full_country_select'
   root 'homes#index'
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :companies
   resources :jobs do
@@ -13,6 +13,4 @@ Rails.application.routes.draw do
   	end
   end
   resources :users
-
-
 end
