@@ -7,7 +7,7 @@ class JobsController < ApplicationController
     jobs = (current_user and current_user.is_manager?) ? current_user.created_jobs : Job.published
     @q = jobs.ransack(params[:q])
     @jobs = @q.result.includes(:company, :category)
-    @jobs = @jobs.paginate(page: params[:page], per_page: 2)
+    @jobs = @jobs.paginate(page: params[:page], per_page: 1)
   end
 
   def new

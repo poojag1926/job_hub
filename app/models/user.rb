@@ -18,7 +18,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable,
          authentication_keys: [:login]
-  devise :omniauthable, omniauth_providers: %i[facebook]
+  devise :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+
   accepts_nested_attributes_for :professional_details, reject_if: :all_blank, allow_destroy: true      
   attr_writer :login
   
@@ -33,6 +34,21 @@ class User < ApplicationRecord
       user.skip_confirmation!
       user.save(validate: false)
     end
+  end
+
+  def self.from_google_omniauth(access_token)
+    data = access_token.info
+    user = User.where(email: data['email']).first
+    # Uncomment the section below if you want users to be created if they don't exist
+    unless user
+        user = User.new(full_name: data['name'],
+           email: data['email'],
+           password: Devise.friendly_token[0,20]
+        )
+      user.skip_confirmation!
+      user.save(validate: false)
+    end
+    user
   end
 
   def login
@@ -59,12 +75,14 @@ class User < ApplicationRecord
   def company?
     is_manager? && company.present?
   end 
-
-  def check_manager_login
-     
-
-  end
 end
+
+
+
+
+
+
+
 
 
 

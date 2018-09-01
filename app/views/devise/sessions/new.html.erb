@@ -19,11 +19,18 @@
         </div>
         <div class="form-group row">
           <div class="offset-12 col-lg-12">
-            <%= f.submit "Login", class: 'btn btn-primary btn-md' %>
+            <%= f.submit "Login", class: 'btn btn-primary' %>
           </div>
         </div>
         <%unless params["as_a_manager"].eql?("true")%>
-          <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+          <div class="form-group row">
+            <%= link_to user_facebook_omniauth_authorize_path(:facebook), class: "btn btn-sm btn-social btn-facebook btn-primary" do %>
+              <span class="fa fa-facebook"></span>Facebook <br>
+            <% end %>
+            <%= link_to user_facebook_omniauth_authorize_path(:google), class: "btn btn-sm btn-social btn-google primary-danger" do %>
+              <span class="fa fa-google"></span>Gmail
+            <% end %>
+          </div>
         <%end%>
         <p>New User?
           <%= render "devise/shared/links", class: "offset-12 col-lg-12" %>
