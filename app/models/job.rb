@@ -1,9 +1,11 @@
 class Job < ApplicationRecord
+
+  default_scope  {joins(:company).where("companies.approved = 'true'")}
 	after_create :users_to_be_notify
 	belongs_to :user, foreign_key: 'manager_id'
 	has_many :applied_jobs
 	has_many :users, through: :applied_jobs
-	belongs_to :company
+	belongs_to :company, dependent: :destroy
 	belongs_to :category
 	scope :by_status, -> (search){where('status ILIKE ?', "%#{search}%")}
 	scope :published, -> {where(status: 'published')}
@@ -15,4 +17,9 @@ class Job < ApplicationRecord
 			JobMailer.with(job: self, job_seeker: users1).send_job_updates.deliver_now
 		end	
 	end	
+
+	def has_applied_for_job?
+  self.where()
+
+	end
 end

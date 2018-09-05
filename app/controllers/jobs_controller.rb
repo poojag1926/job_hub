@@ -2,12 +2,12 @@ class JobsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_job, except: [:index, :new, :create, :show, :job_applied]
   before_action :set_search
-  before_action :check_company_approved?, except: [:index, :show]
+  before_action :check_company_approved?, except: [:show]
   def index
     jobs = (current_user and current_user.is_manager?) ? current_user.created_jobs : Job.published
     @q = jobs.ransack(params[:q])
     @jobs = @q.result.includes(:company, :category)
-    @jobs = @jobs.paginate(page: params[:page], per_page: 1)
+    @jobs = @jobs.paginate(page: params[:page], per_page: 2)
   end
 
   def new
@@ -49,7 +49,7 @@ class JobsController < ApplicationController
 
   def job_applied
     @job = Job.find(params[:id])
-    unless current_user.has_applied_for_job?(@job.id)
+    # unless current_user.has_applied_for_job?(@job.id)
       if current_user.resume?
         @applied_job = @job.applied_jobs.new(job_seeker_id: current_user.id)
         if @applied_job.save
@@ -62,7 +62,7 @@ class JobsController < ApplicationController
         redirect_to (edit_user_registration_path)
         return
       end  
-    end  
+     
     redirect_to root_path  
   end
   
@@ -93,9 +93,20 @@ class JobsController < ApplicationController
   end 
 
   def check_company_approved? 
-    if current_user and current_user.company.is_approved?
-      flash[:info] = "your company is not approved"
-      redirect_to root_path
+    if current_user and current_user.is_manager?
+      unless current_user.company.is_approved?
+        flash[:info] = "your company is not approved"
+        redirect_to root_path
+      end
     end
   end    
 end
+
+
+
+
+
+
+
+
+        

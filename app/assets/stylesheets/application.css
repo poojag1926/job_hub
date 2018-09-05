@@ -13,7 +13,9 @@
  *= require_tree .
  *= require_self
  *= require font-awesome
+ *= require card
  */
+ 
  .big-checkbox {
   width: 100px; 
   height: 100px;
@@ -77,4 +79,8 @@
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
   text-align: center;
+}
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
 }
