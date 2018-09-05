@@ -1,4 +1,56 @@
-<h1>welcome</h1>
+<h2><i>welcome... </i><%= current_user.full_name%></h2>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card" style="width: 25rem;height: 20rem;">
+      <div class="card-body">
+        <h4 class="card-title">Total jobs</h4>
+        <h5 class="card-subtitle mb-2 text-muted">total no of jobs</h5>
+        <h3 class="card-text"><%= @total_jobs %></h3>
+        <%= link_to 'manage jobs', jobs_path, class: "card-link " %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card" style="width: 25rem;height: 20rem;">
+      <div class="card-body">
+        <h4 class="card-title">Published jobs</h4>
+        <h5 class="card-subtitle mb-2 text-muted">total no of published jobs</h5>
+        <h3 class="card-text"><%= @published_jobs %></h3>
+        <%= link_to 'manage jobs', jobs_path, class: "card-link " %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card" style="width: 25rem;height: 20rem;">
+      <div class="card-body">
+        <h4 class="card-title">Draft jobs</h4>
+        <h5 class="card-subtitle mb-2 text-muted">total no of draft jobs</h5>
+        <h3 class="card-text"><%= @draft_jobs %></h3>
+        <%= link_to 'manage jobs', jobs_path, class: "card-link " %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card" style="width: 25rem;height: 20rem;">
+      <div class="card-body">
+        <h4 class="card-title">Closed jobs</h4>
+        <h5 class="card-subtitle mb-2 text-muted">total no of closed jobs</h5>
+        <h3 class="card-text"><%= @closed_jobs %></h3>
+        <%= link_to 'manage jobs', jobs_path, class: "card-link " %>
+      </div>
+    </div>
+  </div><br />
+  <div class="col-sm-4">
+    <div class="card" style="width: 25rem;height: 20rem;">
+      <div class="card-body">
+        <h4 class="card-title">Applied users</h4>
+        <h5 class="card-subtitle mb-2 text-muted">total no of applied users</h5>
+        <h3 class="card-text"><%= @applied_users %></h3>
+        <%= link_to 'manage jobs', jobs_path, class: "card-link " %>
+      </div>
+    </div>
+  </div>
+</div><br />
 <p>Want to create a company? 
   <%= link_to 'Create Company', new_company_path %> <br />
 </p>
@@ -6,6 +58,6 @@
   <%= link_to 'Job', jobs_path %>
 </p>
 <p>To edit company detailsclick here
-	<%= link_to 'Edit', edit_company_path(current_user.company) %>
+  <%= link_to 'Edit', edit_company_path(current_user.company) %>
 </p>
 <%= link_to 'show company', company_path(current_user.company.id) %>
