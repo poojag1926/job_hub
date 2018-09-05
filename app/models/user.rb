@@ -4,8 +4,7 @@ class User < ApplicationRecord
   has_many :applied_jobs, foreign_key: 'job_seeker_id'
   has_many :jobs, through: :applied_jobs
   has_one :company, foreign_key: 'owner_id'
-	validates :username, presence: :true, uniqueness: {case_sensitive: false, message: 'can not be blank'}
-	validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+	
   mount_uploader :image, ImageUploader
   mount_uploader :resume, ResumeUploader
 
@@ -13,8 +12,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   USER_ROLES = %w(company_manager job_seeker)
-  validates :contact_no, presence: :true, numericality: { only_integer: true }
 
+  validates :username, presence: :true, uniqueness: {case_sensitive: false, message: 'can not be blank'}
+  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+  validates :contact_no, presence: :true, numericality: { only_integer: true }
+  validates :role, presence: :true
+  validates :email, presence: :true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable,
          authentication_keys: [:login]
