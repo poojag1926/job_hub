@@ -1,10 +1,10 @@
 <% if user_signed_in? and current_user.is_manager? %>
-	<%= render partial: 'jobs/job', collection: @jobs %>
+	<%= render partial: 'jobs/job', collection: jobs %>
 <% else %>
-	<%= @jobs.in_groups_of(2, false) do |jobs| %>
+	<%= @jobs.in_groups_of(2, false) do |jobs_data| %>
 		<div class="row">
-		  <%= render partial: 'jobs/job', collection: jobs %>
+		  <%= render partial: 'jobs/job', collection: jobs_data %>
 		</div>	
 	<% end %>
-<% end %>
 <%= will_paginate @jobs,{link_options: {'data-remote': true}, renderer: BootstrapPagination::Rails} %>
+<% end %>

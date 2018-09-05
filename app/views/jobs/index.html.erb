@@ -1,3 +1,5 @@
+<div class="flash-messages">
+</div>
 <% if user_signed_in? && current_user.is_manager? %>
   <%= link_to 'New Job', new_job_path, class: 'btn btn-primary margin' %><br />
   <h2 class="margin">Listing Jobs </h2>
@@ -16,29 +18,23 @@
       </div>
     <% end %>
   </div>
-  <div class="row">
-    <table class="table table-striped">
-      <tr>
-        <th>Title </th>
-        <th>Req. Experience </th>
-        <th>Req. Qualification </th>
-        <th>Offer ctc </th>
-        <th>Contact person </th>
-        <th>contact person no </th>
-        <th>Location </th>
-        <th>No of vacancies </th>
-        <th>Status</th>
-        <th>Change Status</th>
-        <th>Description</th>
-        <th>Links </th>
-      </tr>
-      <tbody class="job-list">
-        <%= render partial: 'jobs/job_list' %> 
-      </tbody>
-    </table>
+  <div class="row jobs_data">
+    <%= render partial: 'jobs/jobs_table', locals: {:jobs => @jobs}%>
   </div>
 <% else %>
-  <%= render partial: 'jobs/job_list' %>
+  <div class="row">
+    <%= render partial: 'jobs/search_jobs'%>
+  </div>
+  <div class="job-list">
+    <%= render partial: 'jobs/job_list', locals: {:jobs => @jobs}%> 
+  </div>
 <% end %>
+<div class="hidden not-available">
+  <p>no related jobs are present.</p>
+</div>
+
+
+
+
 
 

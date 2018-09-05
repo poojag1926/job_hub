@@ -17,17 +17,18 @@
     <td><%= job.description %></td>
     <td>
       <%= link_to edit_job_path(job.id) do %>
-        <i class="glyphicon glyphicon-pencil"></i>
+        <i class="glyphicon glyphicon-pencil text-primary"></i>
       <% end %>
       <%= link_to job, method: :delete, data: {confirm: 'Are you sure?'} do %>
-        <i class="glyphicon glyphicon-trash"></i>
+        <i class="glyphicon glyphicon-trash text-danger"></i>
       <% end %>
       <%= link_to job do %>
-        <i class="glyphicon glyphicon-eye-open"></i>
+        <i class="glyphicon glyphicon-eye-open text-info"></i>
       <% end %>
     </td>
   </tr>
 <% else %>
+  
   <div class="col-sm-6 ">
     <div class="panel panel-info">
       <div class="panel-body panel-bodies word-break">

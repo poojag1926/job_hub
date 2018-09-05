@@ -1,7 +1,9 @@
 <% if @jobs.empty? %>
-	$('.job-list').html("<div class='alert alert-info'>No related jobs are present.</div>");
+	$('.flash-messages').html("<div class='alert alert-info'>No related jobs are present.</div>");
+<% elsif current_user and current_user.is_manager? %>
+  $('.jobs_data').html("<%= escape_javascript render(partial: 'jobs/jobs_table', locals: {:jobs => @jobs}) %>");
 <% else %>
-	$('.job-list').html("<%= escape_javascript render(partial: 'jobs/job_list', locals: {:@jobs => @jobs}) %>");
+  $('.job-list').html("<%= escape_javascript render(partial: 'jobs/job_list', locals: {:@jobs => @jobs}) %>");
 <% end %>
 
 
